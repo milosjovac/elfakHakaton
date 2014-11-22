@@ -24,6 +24,7 @@ proguard/
 
 # Log Files
 *.log
-
 node_modules/
 .idea/
+Web/node_modules/
+Web/.idea/
