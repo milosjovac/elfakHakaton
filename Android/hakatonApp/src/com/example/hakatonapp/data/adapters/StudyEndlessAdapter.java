@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import com.commonsware.cwac.endless.EndlessAdapter;
 import com.example.hakatonapp.R;
 import com.example.hakatonapp.data.GlobalBank;
+import com.example.hakatonapp.model.Feed;
 
 import android.app.Activity;
 import android.graphics.Typeface;
@@ -84,7 +85,7 @@ public class StudyEndlessAdapter extends EndlessAdapter {
 	protected void appendCachedData() {
 		if (resNum == 0 && curPageNumber == 0) {
 			Toast.makeText(ctx, errorMsg, Toast.LENGTH_LONG).show();
-			((ResultListActivity) ctx).onNoResult();
+			// ON NO RESULT
 		}
 		FeedLazyAdapter a = (FeedLazyAdapter) getWrappedAdapter();
 		a.notifyDataSetChanged();
@@ -111,17 +112,6 @@ public class StudyEndlessAdapter extends EndlessAdapter {
 	protected boolean cacheInBackground() throws Exception {
 
 		// ========================================================================================================
-		// IF CASHED SEARCH DON'T DOWNLOAD UNLESS USER SCROLL TO BOTTOM.
-		// ========================================================================================================
-
-		if (cashedSearchStopBackgroundDownload) {
-			cashedSearchStopBackgroundDownload = false;
-			if (curPageNumber < GlobalBank.resultMaxPageNumber)
-				return true;
-			return false;
-		}
-
-		// ========================================================================================================
 		// INCREMENTING CUR_PAGE_NUMBER
 		// ========================================================================================================
 
@@ -131,7 +121,7 @@ public class StudyEndlessAdapter extends EndlessAdapter {
 		// PARSE DOCUMENT FROM WEB
 		// ========================================================================================================
 
-		LazyAdapterResults a = (LazyAdapterResults) getWrappedAdapter();
+		FeedLazyAdapter a = (FeedLazyAdapter) getWrappedAdapter();
 
 		InputStream is = null;
 		String res = null;
@@ -189,8 +179,6 @@ public class StudyEndlessAdapter extends EndlessAdapter {
 			}
 
 			maxPageNumber = resNum / RESULTS_PER_LOAD;
-			// CASH MAX PAGE NUMBER IN CASE OF REPEATED SEARCH
-			GlobalBank.resultMaxPageNumber = maxPageNumber;
 		}
 
 		// ========================================================================================================
@@ -256,8 +244,8 @@ public class StudyEndlessAdapter extends EndlessAdapter {
 		}
 	}
 
-	public ArrayList<POI> getData() {
-		LazyAdapterResults a = (LazyAdapterResults) getWrappedAdapter();
+	public Feed getData() {
+		FeedLazyAdapter a = (FeedLazyAdapter) getWrappedAdapter();
 		return a.getData();
 	}
 
