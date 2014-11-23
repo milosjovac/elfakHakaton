@@ -14,7 +14,9 @@ var profileSchema = mongoose.Schema({
     last_name: String,
     picture: String,
     tags_interested: [String],
-    tags_teach: [String]
+    tags_teach: [String],
+    jmbg: String,
+    br_indeksa: String
 });
 
 // methods ======================

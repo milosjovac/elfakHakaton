@@ -2,14 +2,16 @@
  * Created by MilenCHE on 11/23/2014.
  */
 var mongoose = require('mongoose');
-var crypto = require('crypto');
 
 /* Schema for profile data. */
 
-var profileSchema = mongoose.Schema({
+var classSchema = mongoose.Schema({
     theme: String,
     tags: [String],
-    teacher
+    teacher: Schema.Types.ObjectId,
+    date_time: Date,
+    max_students: Number,
+    students: [Schema.Types.ObjectId]
 });
 
-module.exports = mongoose.model("Profile", profileSchema);
+module.exports = mongoose.model("Class", classSchema);
