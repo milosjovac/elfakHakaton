@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.example.hakatonapp.R;
 import com.example.hakatonapp.fragments.FeedFragment;
 import com.example.hakatonapp.fragments.NavigationDrawerFragment;
+import com.example.hakatonapp.fragments.TeacherFragment;
 
 public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -51,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements
 			fragment = FeedFragment.newInstance(position);
 			break;
 		case 2:
-
+			fragment = TeacherFragment.newInstance(position);
 			break;
 		case 3:
 

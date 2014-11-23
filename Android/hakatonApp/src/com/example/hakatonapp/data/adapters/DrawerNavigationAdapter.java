@@ -18,9 +18,8 @@ public class DrawerNavigationAdapter extends BaseAdapter {
 
 	public DrawerNavigationAdapter(Activity ac) {
 		this.ac = ac;
-		inflater =   (LayoutInflater) ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) ac.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
-
 
 	@Override
 	public int getCount() {
@@ -60,45 +59,41 @@ public class DrawerNavigationAdapter extends BaseAdapter {
 		if (position == 0 || position == 4) {
 			if (convertView == null)
 				convertView = inflater.inflate(R.layout.drawer_list_divider, parent, false);
-			tv = (TextView) convertView.findViewById(R.id.drawer_divider_text);
 		} else {
 			if (convertView == null)
 				convertView = inflater.inflate(R.layout.drawer_list_item, parent, false);
 			tv = (TextView) convertView.findViewById(R.id.drawer_item_text);
 			iv = (ImageView) convertView.findViewById(R.id.drawer_item_logo);
-		}
 
-		switch (position) {
-		case 0:
-			tv.setText("Kategorije");
-			break;
-		case 1:
-			iv.setImageResource(R.drawable.megaphone15);
-			tv.setText(ac.getResources().getString(R.string.title_section1));
-			break;
-		case 2:
-			iv.setImageResource(R.drawable.multiple25);
-			tv.setText(ac.getResources().getString(R.string.title_section2));
-			break;
-		case 3:
-			iv.setImageResource(R.drawable.black268);
-			tv.setText(ac.getResources().getString(R.string.title_section3));
-			break;
-		case 4:
-			tv.setText("Dodatno");
-			break;
-		case 5:
-			iv.setImageResource(R.drawable.male18);
-			tv.setText(ac.getResources().getString(R.string.title_section4));
-			break;
-		case 6:
-			iv.setImageResource(R.drawable.tools3);
-			tv.setText(ac.getResources().getString(R.string.title_section5));
-			break;
-		case 7:
-			iv.setImageResource(R.drawable.idea);
-			tv.setText(ac.getResources().getString(R.string.title_section6));
-			break;
+			switch (position) {
+
+			case 1:
+				iv.setImageResource(R.drawable.megaphone15);
+				tv.setText(ac.getResources().getString(R.string.title_section1));
+				break;
+			case 2:
+				iv.setImageResource(R.drawable.multiple25);
+				tv.setText(ac.getResources().getString(R.string.title_section2));
+				break;
+			case 3:
+				iv.setImageResource(R.drawable.black268);
+				tv.setText(ac.getResources().getString(R.string.title_section3));
+				break;
+
+			case 5:
+				iv.setImageResource(R.drawable.male18);
+				tv.setText(ac.getResources().getString(R.string.title_section4));
+				break;
+			case 6:
+				iv.setImageResource(R.drawable.tools3);
+				tv.setText(ac.getResources().getString(R.string.title_section5));
+				break;
+			case 7:
+				iv.setImageResource(R.drawable.idea);
+				tv.setText(ac.getResources().getString(R.string.title_section6));
+				break;
+			}
+
 		}
 
 		return convertView;
