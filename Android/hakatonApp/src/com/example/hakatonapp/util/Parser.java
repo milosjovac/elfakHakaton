@@ -2,6 +2,7 @@ package com.example.hakatonapp.util;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -131,6 +132,38 @@ public class Parser {
 		{
 			return null;
 		}
+	}
+	
+	public static JSONObject createProfileJSON(Profile profile)
+	{
+		String tagsInterested = "[", tagsTeach = "[";
+		HashMap map = new HashMap();
+		
+		map.put("password", profile.getPassword());
+		map.put("first_name", profile.getFirstName());
+		map.put("last_name", profile.getLastName());
+		map.put("picture", profile.getPictureUrl());
+		
+		int i;
+		for(i = 0 ; i < profile.getTagsInterested().size() - 1; i++)
+		{
+			tagsInterested += "\"" + profile.getTagsInterested().get(i) + "\", ";
+		}
+		i++;
+		tagsInterested += "\"" + profile.getTagsInterested().get(i) + "\"]";
+		
+		
+		for(i = 0 ; i < profile.getTagsTeach().size() - 1; i++)
+		{
+			tagsTeach += "\"" + profile.getTagsTeach().get(i) + "\", ";
+		}
+		i++;
+		tagsTeach += "\"" + profile.getTagsTeach().get(i) + "\"]";
+		
+		map.put("tags_interested", tagsInterested);
+		map.put("tags_teach", tagsTeach);
+		
+		return new JSONObject(map);
 	}
 
 }
