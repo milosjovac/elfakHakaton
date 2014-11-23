@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
+var configDB = require('./database/database');
+var mongoose = require('mongoose');
+
 
 require('./routes/passport')(passport);
 
@@ -28,6 +31,7 @@ app.use(session({secret: 'munchkins' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+mongoose.connect(configDB.url);
 
 require('./routes.js')(app, passport);
 
