@@ -11,7 +11,7 @@ public class Feed {
 		return 1;
 	}
 
-	public FeedItem getFeedItem(int position) {
+	public BasicFeedItem getFeedItem(int position) {
 		return null;
 	}
 }
