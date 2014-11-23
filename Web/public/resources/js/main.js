@@ -7,10 +7,10 @@ var app = angular.module('app', [
  */
 app.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
-    // Home
+    // News Feed page
     .when("/", {
           templateUrl: "/modules/newsFeeds/home.html",
-          controller: "PageCtrl"})
+          controller: "FeedsCtrl"})
     // Pages
     .when("/about", {
           templateUrl: "/resources/templates/about.html",

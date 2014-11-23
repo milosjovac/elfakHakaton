@@ -2,6 +2,11 @@
  * Created by MilenCHE on 11/22/2014.
  */
 
+<<<<<<< HEAD
+=======
+var routes = require('./routes/index');
+var profile = require('./routes/profile');
+>>>>>>> 277f45e2af2e4d3d583155bc7d3f25e51df19e93
 
 // app/routes.js
 module.exports = function(app, passport) {
@@ -20,13 +25,6 @@ module.exports = function(app, passport) {
 
         res.render('signup.ejs', { message: req.flash('loginMessage') });
     });
-
-    // Signup
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
 
     // process the login form
     app.post('/login', passport.authenticate('local-login', {

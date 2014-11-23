@@ -7,8 +7,10 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
-var mongoose = require('mongoose');
 var configDB = require('./database/database');
+var mongoose = require('mongoose');
+
+
 require('./routes/passport')(passport);
 var profile = require('./routes/profile');
 var passport = require('passport');
@@ -35,7 +37,6 @@ app.use(session({secret: 'munchkins' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
 mongoose.connect(configDB.url);
 
 app.use('/', routes);

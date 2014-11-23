@@ -7,16 +7,14 @@ var crypto = require('crypto');
 /* Schema for profile data. */
 
 var profileSchema = mongoose.Schema({
-    username: String,
+    email: String,
     password: String,
     profileid: String,
     first_name: String,
     last_name: String,
     picture: String,
     tags_interested: [String],
-    tags_teach: [String],
-    jmbg: String,
-    br_indeksa: String
+    tags_teach: [String]
 });
 
 // methods ======================
