@@ -194,8 +194,38 @@ footer {
 {
     margin-top: 10px;
 }
+
 .new-account
 {
     display: block;
     margin-top: 10px;
+}
+/* News feed*/
+
+div#feed {
+    background: aqua;
+    padding: 10px;
+}
+
+div#container
+{
+    width: 70%;
+    margin: auto;
+}
+
+div.left
+{
+    float: left;
+    background: azure;
+}
+
+div#options
+{
+    width: 30%;
+    background: wheat;
+}
+
+div.right
+{
+    float:right;
 }
