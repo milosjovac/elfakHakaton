@@ -5,13 +5,6 @@ var passport = require('passport');
 
 var profile = require('../models/profile');
 
-/* GET profile data. */
-router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect : '/', // redirect to the secure profile section
-  failureRedirect : '/signup', // redirect back to the signup page if there is an error
-  failureFlash : true // allow flash messages
-}));
-
 router.get('/:username', function(req, res) {
 
   Profile.findOne({username: req.params.username}, function(err, profile){
