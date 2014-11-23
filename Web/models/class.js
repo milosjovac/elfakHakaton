@@ -9,10 +9,6 @@ var crypto = require('crypto');
 var classSchema = mongoose.Schema({
     theme: String,
     tags: [String],
-<<<<<<< HEAD
-=======
-
->>>>>>> ae1cc78c67403839e34f737c3c85f164dbe26d1e
     teacher: String,
     date_time: Date,
     max_students: Number,

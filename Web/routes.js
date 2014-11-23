@@ -1,11 +1,6 @@
 /**
  * Created by MilenCHE on 11/22/2014.
  */
-<<<<<<< HEAD
-=======
-
-
->>>>>>> ae1cc78c67403839e34f737c3c85f164dbe26d1e
 var routes = require('./routes/index');
 var profile = require('./routes/profile');
 

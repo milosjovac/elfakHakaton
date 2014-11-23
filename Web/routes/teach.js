@@ -78,7 +78,7 @@ var counted = 1;
 
 function counter(toCount, res)
 {
-    console.log("BrojiM!0 ");
+    console.log("BrojiM! " +  toCount + counted);
     if(counted < toCount)
     {
         counted++;
@@ -101,17 +101,23 @@ router.get('/class/:username', function(req, res){
         console.log(user.tags_interested);
         user.tags_interested.forEach(function(entry){
             console.log("Entry: " + entry);
-            tag.findOne({'tag': entry}, function(err, found){
-                ret.maxResults = found.classes.length;
-                found.classes.forEach(function(cls, index) {
-                    console.log(cls);
-                    clas.findOne({'_id': cls}, function (err, aclass) {
-                        ret.results.push(aclass);
-                        //counter(ret.maxResults, res);
+            tag.find({'tag': entry}, function(err, found){
+                console.log(found);
+                found.forEach(function(fnd){
+                    ret.maxResults += fnd.classes.length;
+                    fnd.classes.forEach(function(cls, index) {
+                        console.log(cls);
+                        clas.findOne({'_id': cls}, function (err, aclass) {
+                            ret.results.push(aclass);
+                            //counter(ret.maxResults, res);
+                            counter(ret.maxResults, res);
+                        })
+
                     })
 
                 })
-                counter(ret.maxResults, res);
+
+
                // res.send(ret);
             });
         });
