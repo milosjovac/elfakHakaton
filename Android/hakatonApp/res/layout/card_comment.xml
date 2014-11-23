@@ -28,7 +28,7 @@
         android:layout_alignParentBottom="true" >
 
         <EditText
-            android:id="@+id/comment_text"
+            android:id="@+id/comment_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/comment_button_sendsend"

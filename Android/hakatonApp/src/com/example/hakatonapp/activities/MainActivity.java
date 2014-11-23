@@ -21,6 +21,9 @@ public class MainActivity extends ActionBarActivity implements
 	 * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
 	 */
 	private NavigationDrawerFragment mNavigationDrawerFragment;
+	int curFragment;
+
+	entryAdd entryAddListener;
 
 	/**
 	 * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -50,9 +53,11 @@ public class MainActivity extends ActionBarActivity implements
 		switch (position) {
 		case 1:
 			fragment = FeedFragment.newInstance(position);
+			entryAddListener = (entryAdd) fragment;
 			break;
 		case 2:
 			fragment = TeacherFragment.newInstance(position);
+			entryAddListener = (entryAdd) fragment;
 			break;
 		case 3:
 
@@ -73,6 +78,7 @@ public class MainActivity extends ActionBarActivity implements
 	}
 
 	public void onSectionAttached(int number) {
+		curFragment = number;
 		switch (number) {
 		case 1:
 			mTitle = getString(R.string.title_section1);
@@ -118,4 +124,11 @@ public class MainActivity extends ActionBarActivity implements
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void addNewEntry() {
+		entryAddListener.addNewEntry();
+	}
+
+	public interface entryAdd {
+		public void addNewEntry();
+	}
 }

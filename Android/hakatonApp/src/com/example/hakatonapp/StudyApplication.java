@@ -1,9 +1,9 @@
 package com.example.hakatonapp;
 
-import com.example.hakatonapp.data.GlobalBank;
-
 import android.app.Application;
 import android.content.Context;
+
+import com.example.hakatonapp.data.GlobalBank;
 
 public class StudyApplication extends Application {
 

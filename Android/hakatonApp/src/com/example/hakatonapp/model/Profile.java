@@ -2,8 +2,6 @@ package com.example.hakatonapp.model;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-
 public class Profile {
 
 	String userId;

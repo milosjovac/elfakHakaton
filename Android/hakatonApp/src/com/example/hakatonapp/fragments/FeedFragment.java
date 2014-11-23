@@ -1,5 +1,7 @@
 package com.example.hakatonapp.fragments;
 
+import java.security.KeyStore.Entry;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +12,9 @@ import android.view.ViewGroup;
 import com.example.hakatonapp.R;
 import com.example.hakatonapp.StudyApplication;
 import com.example.hakatonapp.activities.MainActivity;
+import com.example.hakatonapp.activities.MainActivity.entryAdd;
 
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements entryAdd {
 
 	public static final String ARG_SECTION_NUMBER = "selection_number";
 
@@ -40,5 +43,11 @@ public class FeedFragment extends Fragment {
 
 	public static CharSequence getTitle() {
 		return StudyApplication.getContext().getString(R.string.title_section1);
+	}
+
+	@Override
+	public void addNewEntry() {
+		// TODO Auto-generated method stub
+
 	}
 }

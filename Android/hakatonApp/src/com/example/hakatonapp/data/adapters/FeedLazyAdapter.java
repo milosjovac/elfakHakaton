@@ -1,11 +1,11 @@
 package com.example.hakatonapp.data.adapters;
 
-import com.example.hakatonapp.StudyApplication;
-import com.example.hakatonapp.model.Feed;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.example.hakatonapp.StudyApplication;
+import com.example.hakatonapp.model.Feed;
 
 public class FeedLazyAdapter extends BaseAdapter {
 

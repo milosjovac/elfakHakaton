@@ -1,6 +1,5 @@
 package com.example.hakatonapp.model;
 
-import java.util.ArrayList;
 
 public class TeachingFeedItem {
 	
