@@ -10,6 +10,12 @@ var flash = require('connect-flash');
 var mongoose = require('mongoose');
 var configDB = require('./database/database');
 require('./routes/passport')(passport);
+var profile = require('./routes/profile');
+var passport = require('passport');
+var teach = require('./routes/teach');
+var routes = require('./routes/index');
+var tag = require('./routes/tag');
+var comment = require('./routes/comment');
 
 var app = express();
 
@@ -31,6 +37,12 @@ app.use(passport.session());
 app.use(flash());
 
 mongoose.connect(configDB.url);
+
+app.use('/', routes);
+app.use('/profile', profile);
+app.use('/teach', teach);
+app.use('/tag', tag);
+app.use('/comment', comment);
 
 require('./routes.js')(app, passport);
 

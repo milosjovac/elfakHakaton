@@ -8,10 +8,10 @@ var mongoose = require('mongoose');
 var classSchema = mongoose.Schema({
     theme: String,
     tags: [String],
-    teacher: Schema.Types.ObjectId,
+    teacher: String,
     date_time: Date,
     max_students: Number,
-    students: [Schema.Types.ObjectId]
+    students: [String]
 });
 
 module.exports = mongoose.model("Class", classSchema);
