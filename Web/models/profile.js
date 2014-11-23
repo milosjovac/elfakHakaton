@@ -7,7 +7,7 @@ var crypto = require('crypto');
 /* Schema for profile data. */
 
 var profileSchema = mongoose.Schema({
-    email: String,
+    username: String,
     password: String,
     profileid: String,
     first_name: String,

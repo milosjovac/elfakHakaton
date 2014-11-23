@@ -39,14 +39,14 @@ module.exports = function(passport) {
 
     passport.use('local-signup', new LocalStrategy({
             // by default, local strategy uses profilename and password, we will override with email
-            profilenameField : 'email',
+            profilenameField : 'username',
             passwordField : 'password',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
-        function(req, email, password, done) {
-
-            Profile.findOne({'email': email}, function (err, profile) {
+        function(req, username, password, done) {
+            Profile.findOne({'username': username}, function (err, profile) {
                 // if there are any errors, return the error
+                console.log("Ovde!");
                 if (err)
                     return done(err);
 
@@ -54,17 +54,13 @@ module.exports = function(passport) {
                 if (profile) {
                     return done(null, false, req.flash('signupMessage', 'emailTaken'));
                 } else {
-                    if (password.length < 8)
-                        return done(null, false, req.flash('signupMessage', 'shortPassword'));
-                    // if there is no profile with that email
-                    // create the profile
                     var newProfile = new Profile();
 
                     //profileid
                     var profileid = biguint(generator.next(), 'dec');
                     console.log(profileid);
 
-                    newProfile.email = email;
+                    newProfile.username = username;
                     newProfile.password = newProfile.generateHash(password); // use the generateHash function in our profile model
                     newProfile.profileid = profileid;
 
@@ -73,7 +69,6 @@ module.exports = function(passport) {
                         if (err)
                             throw err;
 
-                        emailVerification.generateToken(newProfile.email);
                         console.log(newProfile);
                         return done(null, newProfile);
                     });
@@ -90,14 +85,14 @@ module.exports = function(passport) {
 
     passport.use('local-login', new LocalStrategy({
             // by default, local strategy uses profilename and password, we will override with email
-            profilenameField : 'email',
+            profilenameField : 'username',
             passwordField : 'password',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
-        function(req, email, password, done) { // callback with email and password from our form
+        function(req, username, password, done) { // callback with email and password from our form
             // find a profile whose email is the same as the forms email
             // we are checking to see if the profile trying to login already exists
-            Profile.findOne({ 'email': email }, function (err, profile) {
+            Profile.findOne({ 'username': username }, function (err, profile) {
                 // if there are any errors, return the error before anything else
                 if (err)
                     return done(err);
