@@ -8,9 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
+
 import com.example.hakatonapp.model.BasicFeedItem;
 import com.example.hakatonapp.model.Profile;
-import com.example.hakatonapp.model.TeachingFeedItem;
 
 public class Parser {
 	
@@ -73,9 +74,19 @@ public class Parser {
 			try {
 				
 				jObject = new JSONObject(response);
-				basicFeedItem.setOwnerUsername("teacher");
-				basicFeedItem.setTitle("theme");
-				basicFeedItem.setDateAndTime(Date.valueOf("date_time"));
+				basicFeedItem.setRoomId("class_id");
+				basicFeedItem.setOwnerUsername(jObject.getString("teacher"));
+				basicFeedItem.setTitle(jObject.getString("theme"));
+				basicFeedItem.setDateAndTime(Date.valueOf(jObject.getString("date_time")));
+				basicFeedItem.setMaxStudents(jObject.getInt("max_students"));
+				
+				JSONArray jIds = jObject.getJSONArray("students");
+				ArrayList<Integer> Ids = new ArrayList<Integer>();
+				for(int i = 0; i<jIds.length(); i++)
+				{
+					Ids.add(new Integer(jIds.getInt(i)));
+				}
+				basicFeedItem.setStudentIds(Ids);
 				
 				JSONArray jTags = jObject.getJSONArray("tags");
 				ArrayList<String> tags = new ArrayList<String>();
@@ -98,7 +109,7 @@ public class Parser {
 		}
 	}
 	
-	public static TeachingFeedItem parseTeachingFeedItem(String response)
+/*	public static TeachingFeedItem parseTeachingFeedItem(String response)
 	{
 		JSONObject jObject = null;
 		TeachingFeedItem teachingFeedItem = new TeachingFeedItem();
@@ -132,7 +143,8 @@ public class Parser {
 		{
 			return null;
 		}
-	}
+	}*/
+	
 	
 	public static JSONObject createProfileJSON(Profile profile)
 	{
@@ -162,6 +174,31 @@ public class Parser {
 		
 		map.put("tags_interested", tagsInterested);
 		map.put("tags_teach", tagsTeach);
+		
+		return new JSONObject(map);
+	}
+	
+	public static JSONObject createFeedItemJSON(BasicFeedItem feedItem)
+	{
+		String studentIds = "[";
+		HashMap map = new HashMap();
+		
+		map.put("class_id", feedItem.getRoomId());
+		map.put("teacher", feedItem.getOwnerUsername());
+		map.put("theme", feedItem.getTitle());
+		map.put("date_time", feedItem.getDateAndTime().toString());
+		map.put("max_students", "" + feedItem.getMaxStudents());
+		
+
+		int i;
+		for(i = 0 ; i < feedItem.getStudentIds().size() - 1; i++)
+		{
+			studentIds += feedItem.getStudentIds().get(i) + ", ";
+		}
+		i++;
+		studentIds += feedItem.getStudentIds().get(i) + "]";
+		
+		map.put("students", studentIds);
 		
 		return new JSONObject(map);
 	}
