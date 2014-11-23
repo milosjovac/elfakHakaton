@@ -1,92 +1,105 @@
 /**
  * Created by JoleX on 23-Nov-2014.
  */
+var tags = ['Java', 'Android', 'AngularJS', 'MongoDB', 'NodeJS', 'C++'];
 app.controller('FeedsCtrl', function ($scope, $location, $http ) {
 
     $scope.feeds = [
     {
+        'title' : 'Hakaton results',
+        'body' : 'Today we\'re announcing the winner',
+        'user' :
+            {'username': 'mita', 'rate' : 200}
+        ,
+        'tags': ['#Android','#Java'],
+        'comments': [
+            {'username': 'hero29', 'comment' : 'This is awesome'},
+            {'username': 'hakaton', 'comment' : 'I think all be fine'},
+            {'username': 'user1', 'comment' : 'So? How is the winner...?'}
+        ]
+    },    {
         'title' : 'Some title',
         'body' : 'Some text',
         'user' :
-            {'username': 'pPeric', 'rate' : 200}
+            {'username': 'mira', 'rate' : 200}
         ,
-        'tags': ['#s1','#s2'],
+        'tags': ['#tag1','#tag2'],
         'comments': [
-            {'username': 'pPeric', 'comment' : 'This is my comment'},
-            {'username': 'pPeric', 'comment' : 'This is my comment'},
-            {'username': 'pPeric', 'comment' : 'This is my comment'},
-            {'username': 'pPeric', 'comment' : 'This is my comment'},
-            {'username': 'pPeric', 'comment' : 'This is my comment'}
+            {'username': 'hero29', 'comment' : 'This is awesome'},
+            {'username': 'hakaton', 'comment' : 'I think all be fine'},
+            {'username': 'user1', 'comment' : 'So? How is the winner...?'}
         ]
-
     },
-
     {'title': 'Some title'}]
     ;
 
 
-    // Activates the Carousel
-    $('.carousel').carousel({
-        interval: 5000
-    });
-
-    // Activates Tooltips for Social Links
-    $('.tooltip-social').tooltip({
-        selector: "a[data-toggle=tooltip]"
-    })
 
 });
 
 app.controller('TeacherCtrl', function ($scope, $location, $http ) {
+    $('#datepicker').datepicker({
+        autoclose:true
+    })
+
+    $scope.list_of_tags = ["Android"]
+    $scope.select2Options = {
+        'multiple': true,
+        'simple_tags': true,
+        'tags': tags
+    };
+    $scope.submit = function(){
+        var data = this.submit.arguments[0];
+        data.teacher = "mita";
+        data.tags = this.list_of_tags;
+        var req = {
+            method: 'POST',
+            url: '/teach/class',
+            data: data
+        }
+
+        $http(req).success(function(res){
+            alert("Successful!!");
+        });
+    }
+
 
 });
 
 app.controller('ProfileCtrl', function ($scope, $location, $http ) {
 
-    $http.get('http://10.10.66.245:3000/profile/mita').seccess(function(data){
-        //$scope = data;
-    });
-    $("#interested").select2({closeOnSelect:false});
-    $("#teach").select2({closeOnSelect:false});
-
-    $("input").bind('keyup change',function() {
-        var $t = $(this);
-        var $par = $t.parent();
-        var min = $t.attr("data-valid-min");
-        var match = $t.attr("data-valid-match");
-        var pattern = $t.attr("pattern");
-
-        if (typeof match!="undefined"){
-            if ($t.val()!=$('#'+match).val()) {
-                $par.removeClass('has-success').addClass('has-error');
-            }
-            else {
-                $par.removeClass('has-error').addClass('has-success');
-            }
-        }
-        else if (!this.checkValidity()) {
-            $par.removeClass('has-success').addClass('has-error');
-        }
-        else {
-            $par.removeClass('has-error').addClass('has-success');
-        }
-
-        if ($par.hasClass("has-success")) {
-            $par.find('.form-control-feedback').removeClass('fade');
-        }
-        else {
-            $par.find('.form-control-feedback').addClass('fade');
-        }
-
+    $http.get('/profile/mita').success(function(data){
+        $scope.p = data ;
     });
 
-    $scope.items = [
-        {id:1,tag:'Java'},
-        {id:2,tag:'Android'},
-        {id:3,tag:'AngularJS'},
-        {id:4,tag:'MondoDB'},
-        {id:5,tag:'NodeJS'},
-    ];
+    $scope.interested_tags = ["Android","C++"];
+    $scope.teach_tags = ["Android"];
+
+    $scope.select2OptionsI = {
+        'multiple': true,
+        'simple_tags': true,
+        'tags': tags
+    };
+    $scope.select2OptionsT = {
+        'multiple': true,
+        'simple_tags': true,
+        'tags': tags
+    };
+    $scope.submit = function(){
+        var data = this.submit.arguments[0];
+        data.tags_interested = $scope.interested_tags;
+        data.tags_teach = $scope.teach_tags;
+
+        var req = {
+            method: 'PUT',
+            url: '/profile/mita',
+            data: data
+        }
+
+        $http(req).success(function(res){
+            alert("Successful!");
+        });
+    }
     $scope.rate = 200;
 });
 

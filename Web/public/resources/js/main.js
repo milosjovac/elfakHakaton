@@ -1,10 +1,10 @@
 var app = angular.module('app', [
-  'ngRoute'
+  'ngRoute',
+    'ui.select2'
 ]);
 
-/**
- * Configure the Routes
- */
+
+
 app.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
 
@@ -18,7 +18,7 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: "/modules/profile/profile_home.html",
           controller: "ProfileCtrl"})
       .when("/study_buddy", {
-          templateUrl: "/modules/profile/sbuddy_home.html",
+          templateUrl: "/modules/study_buddy/sbuddy_home.html",
           controller: "SBuddyCtrl"})
       .when("/about", {
           templateUrl: "/modules/about/about_home.html",
@@ -28,3 +28,8 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: "/resources/templates/404.html",
           controller: "ErrorCtrl"});
 }]);
+
+(function($){
+
+
+})(jQuery);
