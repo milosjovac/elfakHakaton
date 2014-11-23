@@ -2,8 +2,11 @@
  * Created by MilenCHE on 11/22/2014.
  */
 
+<<<<<<< HEAD
+=======
 var routes = require('./routes/index');
 var profile = require('./routes/profile');
+>>>>>>> 277f45e2af2e4d3d583155bc7d3f25e51df19e93
 
 // app/routes.js
 module.exports = function(app, passport) {
@@ -38,8 +41,9 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
-    app.use('/', routes);
-    app.use('/profile', profile);
+    app.get('/', function(req, res) {
+        res.render('index', { title: 'Express' });
+    });
 };
 
 // route middleware to make sure a user is logged in
@@ -50,5 +54,5 @@ function isLoggedIn(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
 }
