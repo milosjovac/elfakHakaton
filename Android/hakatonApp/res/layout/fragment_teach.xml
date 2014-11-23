@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,11 +31,20 @@
                 android:singleLine="true" />
 
             <EditText
+                android:id="@+id/teach_max_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="max učesnika"
+                android:inputType="number"
+                android:singleLine="true" />
+
+            <EditText
                 android:id="@+id/teach_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="opis.."
-                android:minLines="7"
+                android:minLines="5"
                 android:singleLine="false" />
 
             <EditText
@@ -54,7 +63,7 @@
                 android:calendarViewShown="false" />
 
             <LinearLayout
-                android:id="@+id/login"
+                android:id="@+id/teachAddEntry"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#000000"

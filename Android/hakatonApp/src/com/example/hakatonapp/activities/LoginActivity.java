@@ -27,11 +27,8 @@ import com.example.hakatonapp.R;
 
 import android.os.AsyncTask;
 
-	
-
-public class LoginActivity extends Activity 
-{
-View button;
+public class LoginActivity extends Activity {
+	View button;
 	TextView txt;
 	EditText username;
 	EditText password;;
@@ -59,33 +56,37 @@ View button;
 				button.setBackgroundColor(Color.parseColor("#ffffff"));
 				txt.setTextColor(Color.parseColor("#000000"));
 				startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+				// skloni ovaj Activity sa back stacka
+				finish();
 			}
 		});
+	}
 
-	private class LoginAsyncTask extends AsyncTask<Profile, Void, JSONObject>
-	{
+	public class LoginAsyncTask extends AsyncTask<Profile, Void, JSONObject> {
 		String serverUrl = "";
+
 		@Override
 		protected JSONObject doInBackground(Profile... params) {
-			
+
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			
+
 			HttpPost httpPost = new HttpPost(serverUrl + "/profile/" + params[0].getUsername());
-			
+
 			JSONObject data = Parser.createProfileJSON(params[0]);
-			
+
 			try {
-				
+
 				StringEntity stringEntity = new StringEntity(data.toString());
 				httpPost.setEntity(stringEntity);
-				
+
 				httpPost.setHeader("Accept", "application/json");
-			    httpPost.setHeader("Content-type", "application/json");
-			    
-			    ResponseHandler responseHandler = new BasicResponseHandler();
-			    
-			    return httpClient.execute(httpPost, responseHandler);
-				
+				httpPost.setHeader("Content-type", "application/json");
+
+				ResponseHandler responseHandler = new BasicResponseHandler();
+
+				return httpClient.execute(httpPost, responseHandler);
+
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
