@@ -1,12 +1,8 @@
 /**
  * Created by MilenCHE on 11/22/2014.
  */
-
-<<<<<<< HEAD
-=======
 var routes = require('./routes/index');
 var profile = require('./routes/profile');
->>>>>>> 277f45e2af2e4d3d583155bc7d3f25e51df19e93
 
 // app/routes.js
 module.exports = function(app, passport) {

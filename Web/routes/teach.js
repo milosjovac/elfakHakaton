@@ -66,21 +66,57 @@ router.put('/class', function(req, res){
     });
 });
 
-router.get('/class', function(req, res){
-    profile.findOne({'_id': req.body._id}, function(err, user){
-        var ret = [];
+// Neverovatno ruzan refference counter.
+// Nije bilo vremena za povezivanje async-a
 
-        user.tags.forEach(function(entry){
+
+var ret = {
+    "maxResults": 0,
+    "results": []
+}
+var counted = 1;
+
+function counter(toCount, res)
+{
+    console.log("BrojiM!0 ");
+    if(counted < toCount)
+    {
+        counted++;
+        return;
+    }
+
+    res.send(ret);
+
+    ret = {
+        "maxResults": 0,
+        "results": []
+    }
+    counted = 1;
+}
+
+router.get('/class/:username', function(req, res){
+    profile.findOne({'username': req.params.username}, function(err, user){
+
+
+        console.log(user.tags_interested);
+        user.tags_interested.forEach(function(entry){
+            console.log("Entry: " + entry);
             tag.findOne({'tag': entry}, function(err, found){
-                found.classes.forEach(function(cls) {
+                ret.maxResults = found.classes.length;
+                found.classes.forEach(function(cls, index) {
+                    console.log(cls);
                     clas.findOne({'_id': cls}, function (err, aclass) {
-                        ret.push(aclass);
+                        ret.results.push(aclass);
+                        //counter(ret.maxResults, res);
                     })
+
                 })
+                counter(ret.maxResults, res);
+               // res.send(ret);
             });
         });
 
-        res.send(ret);
+
     });
 });
 

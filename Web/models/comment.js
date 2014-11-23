@@ -7,8 +7,8 @@ var mongoose = require('mongoose');
 
 var commentSchema = mongoose.Schema({
     text: String,
-    theme: Schema.Type.ObjectId,
-    profile: Schema.Types.ObjectId
+    theme: String,
+    profile: String
 });
 
 module.exports = mongoose.model("Comment", commentSchema);

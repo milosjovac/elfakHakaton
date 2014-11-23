@@ -9,58 +9,86 @@ var profile = require('../models/profile');
 var tag = require('../models/tag');
 var comment = require('../models/comment');
 
-router.post('/class', function(req, res) {
-    console.log(req.body);
-    clas.findOne({'theme': req.body.theme}, function(err, classes){
+router.post('/', function(req, res) {
+    comment.findOne({'theme': req.body.theme}, function(err, comments){
         if(err){
             console.log(err);
             return;
         }
 
-        if(classes) {
-            res.send(new clas());
+        if(comments) {
+            res.send(new comment());
             return;
         }
 
 
         console.log(req.body);
-        var newClass = new clas();
+        var newCommnet = new clas();
 
-        newClass.teacher = req.body.teacher;
-        newClass.theme = req.body.theme;
-        newClass.tags = req.body.tags;
-        newClass.date_time = req.body.date_time;
-        newClass.max_students = req.body.max_students;
-        newClass.students = req.body.students;
+        newCommnet.text = req.body.text;
+        newCommnet.theme = req.body.theme;
+        newCommnet.profile = req.body.username;
 
-        newClass.save(function(err, returnClass){
+        newCommnet.save(function(err, returnComment){
             if(err)
             {
                 console.log(err);
             }
 
-            var ret = {"class_id" : returnClass._id}
-            res.send(ret);
+            res.send(newComment);
 
         })
     })
 });
 
-router.get('/class', function(req, res){
-    profile.findOne({'_id': req.body._id}, function(err, user){
-        var ret = [];
 
-        user.tags.forEach(function(entry){
-            tag.findOne({'tag': entry}, function(err, found){
-                found.classes.forEach(function(cls) {
-                    clas.findOne({'_id': cls}, function (err, aclass) {
-                        ret.push(aclass);
-                    })
-                })
-            });
+// Neverovatno ruzan refference counter.
+// Nije bilo vremena za povezivanje async-a
+
+var ret = {
+    'comments': []
+};
+
+var counted = 1;
+
+function counter(toCount, res)
+{
+    if(counted < toCount)
+    {
+        counted++;
+        return;
+    }
+
+    res.send(ret);
+
+    ret = {
+        'comments': []
+    };
+    counted = 1;
+}
+
+
+router.get('/:theme', function(req, res){
+
+    comment.find({'theme': req.params.theme}, function(err, comments){
+        if(err) {
+            console.log(err);
+            return;
+        }
+
+        comments.forEach(function(entry, index){
+            console.log(entry);
+            profile.findOne({"_id": entry.profile}, function(err, profil)
+            {
+                ret.comments.push(entry);
+                ret.comments[index].profile = profil;
+                counter(comments.length, res);
+            })
         });
 
-        res.send(ret);
+        console.log("String neki!");
+
+        //res.send(ret);
     });
 });
 

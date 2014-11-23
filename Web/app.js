@@ -39,6 +39,8 @@ app.use(passport.session());
 app.use(flash());
 mongoose.connect(configDB.url);
 
+app.disable('etag');
+
 app.use('/', routes);
 app.use('/profile', profile);
 app.use('/teach', teach);
